@@ -8,11 +8,14 @@ const Signup = () => {
 
       let email = e.target.elements.email?.value;
       let password = e.target.elements.password?.value;
-      fetch('/createUser', {
+      fetch('http://openbeats-daw.us-east-2.elasticbeanstalk.com/createUser', {
                   method: 'POST',
                   headers: {
                       'Accept': 'application/json',
-                      'Content-Type': 'application/json'
+                      'Content-Type': 'application/json',
+                      "Access-Control-Allow-Headers" : "Content-Type",
+                      "Access-Control-Allow-Origin": "*",
+                      "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
                   },
                   body: JSON.stringify({emailId: e.target.elements.email?.value,username : e.target.elements.fname?.value,firstName:e.target.elements.fname?.value,lastName:e.target.elements.lname?.value,preferredName:e.target.elements.fname?.value,subscriptionType:'free',emailVerified:false,password:e.target.elements.password?.value})
               }).then((response) => response.json());
