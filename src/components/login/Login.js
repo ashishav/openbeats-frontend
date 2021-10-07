@@ -8,6 +8,20 @@ const Login = () => {
 
       let email = e.target.elements.email?.value;
       let password = e.target.elements.password?.value;
+      let encodeString = ''+email+':'+password;
+      const encodedString = Buffer.from(encodeString).toString('base64');
+
+      fetch('http://openbeats-daw.us-east-2.elasticbeanstalk.com/login', {
+          method: 'GET',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              "Access-Control-Allow-Headers" : "Content-Type",
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+              'Authorization': 'Basic '+ encodedString
+          },
+      }).then((response) => response.json());
 
       console.log(email, password);
   };
